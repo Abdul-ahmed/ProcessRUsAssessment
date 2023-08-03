@@ -9,6 +9,7 @@ namespace ProcessRUsAssessment.AutoMapperConfig
     {
         public MapperConfig()
         {
+            CreateMap<User, CreateUser>().ReverseMap();
             CreateMap<User, LoginUser>().ReverseMap();
         }
     }

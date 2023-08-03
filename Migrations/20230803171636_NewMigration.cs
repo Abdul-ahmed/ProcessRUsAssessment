@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ProcessRUsAssessment.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class NewMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,6 +18,7 @@ namespace ProcessRUsAssessment.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
+                    Discriminator = table.Column<string>(type: "TEXT", nullable: false),
                     Name = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "TEXT", nullable: true)
@@ -160,18 +161,18 @@ namespace ProcessRUsAssessment.Migrations
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                columns: new[] { "Id", "ConcurrencyStamp", "Discriminator", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "36ecbf6c-1032-48b6-aa08-50ed4e924cc6", null, "FrontOffice", "FRONT OFFICE" },
-                    { "4d136a37-b365-43ec-87d3-a13a6a8b3a99", null, "BackOffice", "BACK OFFICE" },
-                    { "d5c1afbd-93fb-4cff-a2be-24466e52f385", null, "Admin", "ADMIN" }
+                    { "859fe597-5b71-4c68-b62f-adefd8a077c7", null, "Role", "FrontOffice", "FRONTOFFICE" },
+                    { "9269175b-c8a6-4af9-aef3-8b0d24e4b0d8", null, "Role", "BackOffice", "BACKOFFICE" },
+                    { "b4b25574-4a6e-4c73-90c1-d3bb0617e64d", null, "Role", "Admin", "ADMIN" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "4c2fad80-06b8-4b28-a31e-3f956255eb8f", 0, "c20a7f8e-f6e4-4199-ac2b-2ed695508078", "admin@processrus.com", false, false, null, null, null, "admin.password", null, false, "f086ff92-5aa7-4c49-b422-160dcfa3890f", false, null });
+                values: new object[] { "1ab6aeb6-32eb-4a1e-a6f7-8bcb1a3377f8", 0, "3928912c-e2fe-4274-aca6-32ad5bbe8122", "admin@processrus.com", false, true, null, "ADMIN@PROCESSRUS.COM", "ADMIN@PROCESSRUS.COM", "AQAAAAIAAYagAAAAEBi5RSOrDsPkcx/IpMdp5TTiTjy+F2Aqmhi7OdvJjxNfEHbMqC2kqEFpWOfERNjZ4A==", null, false, "f773dc1b-6b27-4448-9efe-af37eeba8043", false, "admin@processrus.com" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

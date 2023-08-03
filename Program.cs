@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using ProcessRUsAssessment.AutoMapperConfig;
 using ProcessRUsAssessment.Models;
 using Serilog;
 
@@ -8,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ProcessRUsAssessmentDBContext>(options =>
         options.UseSqlite(builder.Configuration.GetConnectionString("ProcessRUsAssessmentDBConnectionString")));
 
-builder.Services.AddIdentityCore<User>().AddRoles<IdentityRole>().AddEntityFrameworkStores<ProcessRUsAssessmentDBContext>();
+builder.Services.AddIdentityCore<User>().AddRoles<Role>().AddEntityFrameworkStores<ProcessRUsAssessmentDBContext>();
 
 // Add services to the container.
 
@@ -27,6 +28,9 @@ builder.Services.AddCors(options =>
 builder.Host.UseSerilog((context, loggerConfiguration) => {
     loggerConfiguration.WriteTo.Console().ReadFrom.Configuration(context.Configuration);
 });
+
+//Add AutoMapper
+builder.Services.AddAutoMapper(typeof(MapperConfig));
 
 var app = builder.Build();
 

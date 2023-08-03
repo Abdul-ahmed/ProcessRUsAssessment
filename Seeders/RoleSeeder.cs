@@ -1,28 +1,29 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using ProcessRUsAssessment.Models;
 
 namespace ProcessRUsAssessment.Seeders
 {
-    public class RoleSeeder : IEntityTypeConfiguration<IdentityRole>
+    public class RoleSeeder : IEntityTypeConfiguration<Role>
     {
-        public void Configure(EntityTypeBuilder<IdentityRole> builder)
+        public void Configure(EntityTypeBuilder<Role> builder)
         {
             builder.HasData(
-                new IdentityRole
+                new Role
                 {
                     Name = "Admin",
                     NormalizedName = "ADMIN"
                 },
-                new IdentityRole
+                new Role
                 {
                     Name = "BackOffice",
-                    NormalizedName = "BACK OFFICE"
+                    NormalizedName = "BACKOFFICE"
                 },
-                new IdentityRole
+                new Role
                 {
                     Name = "FrontOffice",
-                    NormalizedName = "FRONT OFFICE"
+                    NormalizedName = "FRONTOFFICE"
                 });
         }
     }

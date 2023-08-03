@@ -11,8 +11,8 @@ using ProcessRUsAssessment.Models;
 namespace ProcessRUsAssessment.Migrations
 {
     [DbContext(typeof(ProcessRUsAssessmentDBContext))]
-    [Migration("20230803104726_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20230803171636_NewMigration")]
+    partial class NewMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,6 +27,10 @@ namespace ProcessRUsAssessment.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
@@ -45,25 +49,9 @@ namespace ProcessRUsAssessment.Migrations
 
                     b.ToTable("AspNetRoles", (string)null);
 
-                    b.HasData(
-                        new
-                        {
-                            Id = "d5c1afbd-93fb-4cff-a2be-24466e52f385",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        },
-                        new
-                        {
-                            Id = "4d136a37-b365-43ec-87d3-a13a6a8b3a99",
-                            Name = "BackOffice",
-                            NormalizedName = "BACK OFFICE"
-                        },
-                        new
-                        {
-                            Id = "36ecbf6c-1032-48b6-aa08-50ed4e924cc6",
-                            Name = "FrontOffice",
-                            NormalizedName = "FRONT OFFICE"
-                        });
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityRole");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -234,16 +222,46 @@ namespace ProcessRUsAssessment.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "4c2fad80-06b8-4b28-a31e-3f956255eb8f",
+                            Id = "1ab6aeb6-32eb-4a1e-a6f7-8bcb1a3377f8",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c20a7f8e-f6e4-4199-ac2b-2ed695508078",
+                            ConcurrencyStamp = "3928912c-e2fe-4274-aca6-32ad5bbe8122",
                             Email = "admin@processrus.com",
                             EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            PasswordHash = "admin.password",
+                            LockoutEnabled = true,
+                            NormalizedEmail = "ADMIN@PROCESSRUS.COM",
+                            NormalizedUserName = "ADMIN@PROCESSRUS.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEBi5RSOrDsPkcx/IpMdp5TTiTjy+F2Aqmhi7OdvJjxNfEHbMqC2kqEFpWOfERNjZ4A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f086ff92-5aa7-4c49-b422-160dcfa3890f",
-                            TwoFactorEnabled = false
+                            SecurityStamp = "f773dc1b-6b27-4448-9efe-af37eeba8043",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@processrus.com"
+                        });
+                });
+
+            modelBuilder.Entity("ProcessRUsAssessment.Models.Role", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRole");
+
+                    b.HasDiscriminator().HasValue("Role");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "b4b25574-4a6e-4c73-90c1-d3bb0617e64d",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "9269175b-c8a6-4af9-aef3-8b0d24e4b0d8",
+                            Name = "BackOffice",
+                            NormalizedName = "BACKOFFICE"
+                        },
+                        new
+                        {
+                            Id = "859fe597-5b71-4c68-b62f-adefd8a077c7",
+                            Name = "FrontOffice",
+                            NormalizedName = "FRONTOFFICE"
                         });
                 });
 
