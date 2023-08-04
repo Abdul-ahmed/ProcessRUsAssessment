@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProcessRUsAssessment.Models;
 
@@ -10,9 +11,11 @@ using ProcessRUsAssessment.Models;
 namespace ProcessRUsAssessment.Migrations
 {
     [DbContext(typeof(ProcessRUsAssessmentDBContext))]
-    partial class ProcessRUsAssessmentDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230803173016_AddedRoleToAdmin")]
+    partial class AddedRoleToAdmin
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.9");
