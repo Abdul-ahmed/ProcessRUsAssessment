@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -37,6 +38,7 @@ namespace ProcessRUsAssessment.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [Authorize]
         public async Task<ActionResult> Register([FromBody] CreateUser createUser)
         {
             var user = _mapper.Map<User>(createUser);
@@ -94,6 +96,7 @@ namespace ProcessRUsAssessment.Controllers
         // GET: api/Auth/users
         [HttpGet]
         [Route("users")]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
             var users = await _userManager.Users.ToListAsync();
@@ -103,6 +106,7 @@ namespace ProcessRUsAssessment.Controllers
         // GET: api/Auth/roles
         [HttpGet]
         [Route("roles")]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Role>>> GetRoles()
         {
             var roles = await _roleManager.Roles.ToListAsync();
